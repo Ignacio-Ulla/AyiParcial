@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <af:document title="AgregarMaterias.jsf" id="d1">
+        <af:messages id="m1"/>
+        <af:form id="f1">
+            <af:panelSplitter id="ps1" splitterPosition="300">
+                <f:facet name="first">
+                    <af:panelFormLayout id="pfl1">
+                        <af:inputText value="#{bindings.Id.inputValue}" label="#{bindings.Id.hints.label}"
+                                      required="#{bindings.Id.hints.mandatory}"
+                                      columns="#{bindings.Id.hints.displayWidth}"
+                                      maximumLength="#{bindings.Id.hints.precision}"
+                                      shortDesc="#{bindings.Id.hints.tooltip}" id="it1">
+                            <f:validator binding="#{bindings.Id.validator}"/>
+                            <af:convertNumber groupingUsed="false" pattern="#{bindings.Id.format}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.Nombre.inputValue}" label="#{bindings.Nombre.hints.label}"
+                                      required="#{bindings.Nombre.hints.mandatory}"
+                                      columns="#{bindings.Nombre.hints.displayWidth}"
+                                      maximumLength="#{bindings.Nombre.hints.precision}"
+                                      shortDesc="#{bindings.Nombre.hints.tooltip}" id="it2">
+                            <f:validator binding="#{bindings.Nombre.validator}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.Duracion.inputValue}" label="#{bindings.Duracion.hints.label}"
+                                      required="#{bindings.Duracion.hints.mandatory}"
+                                      columns="#{bindings.Duracion.hints.displayWidth}"
+                                      maximumLength="#{bindings.Duracion.hints.precision}"
+                                      shortDesc="#{bindings.Duracion.hints.tooltip}" id="it3">
+                            <f:validator binding="#{bindings.Duracion.validator}"/>
+                            <af:convertNumber groupingUsed="false" pattern="#{bindings.Duracion.format}"/>
+                        </af:inputText>
+                        <af:selectOneChoice value="#{bindings.Cursoid.inputValue}" label="#{bindings.Cursoid.label}"
+                                            required="#{bindings.Cursoid.hints.mandatory}"
+                                            shortDesc="#{bindings.Cursoid.hints.tooltip}" id="soc1">
+                            <f:selectItems value="#{bindings.Cursoid.items}" id="si1"/>
+                            <f:validator binding="#{bindings.Cursoid.validator}"/>
+                        </af:selectOneChoice>
+                        <f:facet name="footer">
+                            <af:panelGroupLayout layout="vertical" id="pgl1">
+                                <af:panelGroupLayout layout="horizontal" id="pgl2">
+                                    <af:button actionListener="#{bindings.First.execute}" text="First"
+                                               disabled="#{!bindings.First.enabled}" partialSubmit="true" id="b1"/>
+                                    <af:button actionListener="#{bindings.Previous.execute}" text="Previous"
+                                               disabled="#{!bindings.Previous.enabled}" partialSubmit="true" id="b2"/>
+                                    <af:button actionListener="#{bindings.Next.execute}" text="Next"
+                                               disabled="#{!bindings.Next.enabled}" partialSubmit="true" id="b3"/>
+                                    <af:button actionListener="#{bindings.Last.execute}" text="Last"
+                                               disabled="#{!bindings.Last.enabled}" partialSubmit="true" id="b4"/>
+                                </af:panelGroupLayout>
+                                <af:button text="Submit" id="b5"/>
+                                <af:button actionListener="#{bindings.CreateWithParams.execute}" text="Agregar materia"
+                                           disabled="#{!bindings.CreateWithParams.enabled}" id="b6"/>
+                                <af:button actionListener="#{bindings.Commit.execute}" text="Commit"
+                                           disabled="#{!bindings.Commit.enabled}" id="b7"/>
+                            </af:panelGroupLayout>
+                        </f:facet>
+                    </af:panelFormLayout>
+                </f:facet>
+                <f:facet name="second">
+                    <af:table value="#{bindings.MateriasView2.collectionModel}" var="row"
+                              rows="#{bindings.MateriasView2.rangeSize}"
+                              emptyText="#{bindings.MateriasView2.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              rowBandingInterval="0"
+                              selectedRowKeys="#{bindings.MateriasView2.collectionModel.selectedRow}"
+                              selectionListener="#{bindings.MateriasView2.collectionModel.makeCurrent}"
+                              rowSelection="single" fetchSize="#{bindings.MateriasView2.rangeSize}"
+                              filterModel="#{bindings.MateriasView2Query.queryDescriptor}" filterVisible="true"
+                              queryListener="#{bindings.MateriasView2Query.processQuery}" varStatus="vs" id="t1"
+                              partialTriggers="::b1 ::b2 ::b3 ::b4 ::b6">
+                        <af:column sortProperty="#{bindings.MateriasView2.hints.Id.name}" filterable="true"
+                                   sortable="true" headerText="#{bindings.MateriasView2.hints.Id.label}" id="c1">
+                            <af:outputText value="#{row.Id}" shortDesc="#{bindings.MateriasView2.hints.Id.tooltip}"
+                                           id="ot1">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.MateriasView2.hints.Id.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.MateriasView2.hints.Nombre.name}" filterable="true"
+                                   sortable="true" headerText="#{bindings.MateriasView2.hints.Nombre.label}" id="c2">
+                            <af:outputText value="#{row.Nombre}"
+                                           shortDesc="#{bindings.MateriasView2.hints.Nombre.tooltip}" id="ot2"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.MateriasView2.hints.Duracion.name}" filterable="true"
+                                   sortable="true" headerText="#{bindings.MateriasView2.hints.Duracion.label}" id="c3">
+                            <af:outputText value="#{row.Duracion}"
+                                           shortDesc="#{bindings.MateriasView2.hints.Duracion.tooltip}" id="ot3">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.MateriasView2.hints.Duracion.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.MateriasView2.hints.Cursoid.name}" filterable="true"
+                                   sortable="true" headerText="#{bindings.MateriasView2.hints.Cursoid.label}" id="c4">
+                            <af:selectOneChoice value="#{row.bindings.Cursoid.inputValue}"
+                                                label="#{row.bindings.Cursoid.label}"
+                                                required="#{bindings.MateriasView2.hints.Cursoid.mandatory}"
+                                                shortDesc="#{bindings.MateriasView2.hints.Cursoid.tooltip}"
+                                                readOnly="true" id="soc2">
+                                <f:selectItems value="#{row.bindings.Cursoid.items}" id="si2"/>
+                                <f:validator binding="#{row.bindings.Cursoid.validator}"/>
+                            </af:selectOneChoice>
+                        </af:column>
+                    </af:table>
+                </f:facet>
+            </af:panelSplitter>
+        </af:form>
+    </af:document>
+</f:view>
